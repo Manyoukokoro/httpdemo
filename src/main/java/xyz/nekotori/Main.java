@@ -1,9 +1,10 @@
 package xyz.nekotori;
 
-import okhttp3.HttpUrl;
-import xyz.nekotori.util.HttpUtil;
+import xyz.nekotori.model.PostModel;
+import xyz.nekotori.api.KonachanApi;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Author: Dengjay
@@ -11,7 +12,16 @@ import java.io.IOException;
  * Time: 11:08
  */
 public class Main {
-    public static void main(String[] args) throws InterruptedException, IOException {
-        HttpUtil.get("https://www.konachan.com/image/8fa613ccaaa7524eadad98d9acd8790f/Konachan.com%20-%20317346%20applecaramel_%28acaramel%29%20bronya_zaychik%20building%20flowers%20honkai_impact%20seele_vollerei%20skirt%20twintails%20veliona%20water.png");
-    }
+        public static void main(String[] args) throws IOException {
+            List<PostModel> ls = KonachanApi.getNewestPost(10);
+    System.out.println("got url");
+            for(PostModel p:ls){
+      System.out.println(p.getFileUrl());
+      System.out.println(p.getFileSize());
+
+                KonachanApi.downloadPic(p.getSampleUrl(),p.getId().toString());
+                KonachanApi.downloadPic(p.getSampleUrl());
+            }
+        }
+
 }
