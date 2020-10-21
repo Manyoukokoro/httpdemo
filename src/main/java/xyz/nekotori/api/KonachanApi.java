@@ -29,9 +29,6 @@ public class KonachanApi {
           .connectTimeout(3000, TimeUnit.SECONDS)
           .build();
 
-  public static boolean downloadPic(String url){
-    return true;
-  }
 
   public static boolean downloadPic(String url, String fileName) throws IOException {
     String formatUrl = url;
@@ -46,11 +43,11 @@ public class KonachanApi {
             .build();
     Response response = client.newCall(request).execute();
     InputStream inputStream = Objects.requireNonNull(response.body()).byteStream();
-    byte[] data = new byte[512*1024];
+    byte[] data = new byte[2048];
     int len = 0;
     FileOutputStream fileOutputStream = null;
     File file = new File(fileName);
-    file.createNewFile();
+    if(!file.createNewFile())throw new IOException("file creating failed.");
     try {
       fileOutputStream = new FileOutputStream(file);
       while ((len = inputStream.read(data)) != -1) {

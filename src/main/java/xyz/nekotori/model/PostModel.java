@@ -4,8 +4,6 @@ package xyz.nekotori.model;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
-import java.util.Date;
-
 /**
  * Author: Dengjay
  * Date: 2020/10/20

@@ -1,4 +1,4 @@
-package xyz.nekotori.model;
+package xyz.nekotori.common;
 
 import lombok.Getter;
 
@@ -10,11 +10,21 @@ import lombok.Getter;
 
 public class CommonResponse<T> {
     @Getter
-    private final String STATUS;
+    private final Status STATUS;
 
+    @Getter
+    private String message;
+
+    @Getter
     private T content;
+
     public CommonResponse(String status) {
-        STATUS = status;
+        STATUS = Status.of(status);
+    }
+
+    public CommonResponse<T> withMessage(String message){
+        this.message = message;
+        return this;
     }
 
     public CommonResponse<T> withContent(T content){
